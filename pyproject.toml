@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uav-photo-optimizer"
+version = "1.0.0"
+description = "UAV 照片篩選工具 — select UAV photos by AOI, buffer and front / side overlap to reduce photogrammetry data"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = [
+    "geopandas>=1.0",
+    "shapely>=2.0",
+    "pyproj>=3.6",
+    "numpy>=1.26",
+    "pydantic>=2.6",
+]
+
+[project.optional-dependencies]
+# Experimental / optional — none of these is needed for the normal workflow
+footprint = ["cameratransform>=1.2"]
+visual = ["opencv-python-headless>=4.8"]
+# Phase 7 (Experimental): local GeoTIFF terrain. weitsicht is Alpha → pinned to the tested version
+terrain = ["rasterio>=1.3", "weitsicht==0.0.4"]
+# REST API v1 and the simple GUI (tkinter from the standard library + the local API)
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+gui = ["fastapi>=0.110", "uvicorn>=0.29"]
+dev = ["pytest>=8", "Pillow>=10", "cameratransform>=1.2", "opencv-python-headless>=4.8",
+       "rasterio>=1.3", "weitsicht==0.0.4", "fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27"]
+
+[project.scripts]
+uav-photo-optimizer = "uav_photo_optimizer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not local_regression'"
+markers = [
+    "local_regression: needs the real (non-public) input data; run with  pytest -m local_regression",
+]

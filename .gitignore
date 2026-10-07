@@ -1,0 +1,52 @@
+# --- Project data: NEVER commit (raw UAV photos, case SHP, results) ---
+input/*
+!input/README.md
+output/*
+!output/README.md
+
+# Local regression baseline (contains real case file names)
+tests/local_regression/*.json
+
+# --- Imagery (anywhere) ---
+*.JPG
+*.JPEG
+*.jpg
+*.jpeg
+*.DNG
+*.dng
+*.TIF
+*.TIFF
+*.tif
+*.tiff
+*.MP4
+*.mp4
+*.MOV
+*.mov
+# Public, hand-made sample data is the only allowed exception
+!examples/sample_data/**
+
+# --- Third-party binaries (install locally, see THIRD_PARTY_NOTICES.md) ---
+tools/*
+!tools/README.md
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Development debug artifacts (real case data) — never commit
+work/
